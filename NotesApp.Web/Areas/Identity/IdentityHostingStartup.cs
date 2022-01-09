@@ -1,5 +1,5 @@
 ﻿using NotesApp.Data.Models;
-using NotesApp.Web.Models;
+using NotesApp.Web.Models.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

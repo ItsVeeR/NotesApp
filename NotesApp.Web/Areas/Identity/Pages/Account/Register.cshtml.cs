@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using NotesApp.Web.Models;
+using NotesApp.Web.Models.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace NotesApp.Web.Areas.Identity.Pages.Account

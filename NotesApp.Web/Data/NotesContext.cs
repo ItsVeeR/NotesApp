@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace NotesApp.Web.Models
+namespace NotesApp.Web.Models.Data
 {
     public class NotesContext : IdentityDbContext<User>
     {
@@ -77,6 +77,9 @@ namespace NotesApp.Web.Models
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Note_User");
             });
+
+           
+
         }
     }
 }

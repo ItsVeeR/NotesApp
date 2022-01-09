@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NotesApp.Data.Models;
+using NotesApp.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +75,73 @@ namespace NotesApp.NotesAPI.DbContext
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Note_User");
             });
+
+            //Add Default Admin user and add its roles 
+
+            var adminId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
+            //Seeding  roles to AspNetRoles table
+            modelBuilder.Entity<IdentityRole>().HasData
+            (
+             new IdentityRole
+             {
+                 Id = adminId.ToString(),
+                 ConcurrencyStamp = Guid.NewGuid().ToString(),
+                 NormalizedName = Data.Enums.Roles.Admin.ToString().ToUpper(),
+                 Name = Data.Enums.Roles.Admin.ToString()
+             },
+             new IdentityRole
+             {
+                 Id = Guid.NewGuid().ToString(),
+                 ConcurrencyStamp = Guid.NewGuid().ToString(),
+                 NormalizedName = Data.Enums.Roles.Moderator.ToString().ToUpper(),
+                 Name = Data.Enums.Roles.Moderator.ToString()
+             },
+             new IdentityRole
+             {
+                 Id = Guid.NewGuid().ToString(),
+                 ConcurrencyStamp = Guid.NewGuid().ToString(),
+                 NormalizedName = Data.Enums.Roles.Basic.ToString().ToUpper(),
+                 Name = Data.Enums.Roles.Basic.ToString()
+             }
+             );
+
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
+
+
+            //a hasher to hash the password before seeding the user to the db
+            var hasher = new PasswordHasher<IdentityUser>();
+
+
+            //Seeding the User to AspNetUsers table
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = userId.ToString(), // primary key
+                    NormalizedUserName = "Admin",
+                    NormalizedEmail = "Admin@gmail.com",
+                    Email = "admin@gmail.com",
+                    UserName = "admin",
+                    FirstName = "Karan",
+                    LastName = "singh",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    PasswordHash = hasher.HashPassword(null, "x12345x") // Should be read from Secrets server.
+                }
+            );
+
+
+            //Seeding the relation between our user and role to AspNetUserRoles table
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = adminId.ToString(),
+                    UserId = userId.ToString()
+                }
+            );
         }
     }
 }

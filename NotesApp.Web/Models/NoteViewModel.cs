@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NotesApp.Web.Models
+namespace NotesApp.Web.Models.Data
 {
     public class NoteViewModel
     {

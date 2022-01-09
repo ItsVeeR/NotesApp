@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NotesApp.Data.Models;
-using NotesApp.Web.Models;
+using NotesApp.Web.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

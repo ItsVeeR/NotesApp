@@ -12,7 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotesApp.Data.Models;
-using NotesApp.Web.Models;
+using NotesApp.Web.Data;
+using NotesApp.Web.Models.Data;
 
 namespace NotesApp.Web
 {
@@ -46,12 +47,11 @@ namespace NotesApp.Web
                .AddDefaultTokenProviders().AddDefaultUI()  ; 
 
             services.AddMvc(c => c.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-
+            services.AddTransient<ContextSeedData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ContextSeedData seeder)
         {
             if (env.IsDevelopment())
             {
@@ -74,6 +74,8 @@ namespace NotesApp.Web
                     name: "default",
                     template: "{controller=Notes}/{action=Index}/{id?}");
             });
+
+            seeder.SeedAdminUser();
         }
     }
 }
