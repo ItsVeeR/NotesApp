@@ -10,7 +10,7 @@ using NotesApp.NotesAPI.DbContext;
 namespace NotesApp.NotesAPI.Migrations
 {
     [DbContext(typeof(NotesContext))]
-    [Migration("20220109221015_AdditionalUserDataInsert")]
+    [Migration("20220109223832_AdditionalUserDataInsert")]
     partial class AdditionalUserDataInsert
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,31 +50,24 @@ namespace NotesApp.NotesAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00ddaeae-7780-44d5-bd26-f84457706992",
-                            ConcurrencyStamp = "c006cbc0-0125-413f-9f18-d76b73d6eb8d",
+                            Id = "ba6d02d9-74df-4d01-a474-165c08d948ba",
+                            ConcurrencyStamp = "0cffd19c-11c8-4826-a074-deab157dd60b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ffa5a9e5-640d-4444-8f71-0efffcfa5a1b",
-                            ConcurrencyStamp = "bd0185d1-f88f-429c-8647-2b1a63fe7b86",
+                            Id = "c36ecb07-a824-4dc0-9e35-245033191581",
+                            ConcurrencyStamp = "9069e0f5-c65e-40a3-b9f1-c28e2381787b",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "ca92176a-4dcb-4b2e-a438-653eb3b61c3e",
-                            ConcurrencyStamp = "1e1e1ff3-963d-4a6c-9643-3a11f10d7343",
+                            Id = "d73e4a57-5caf-4d40-a3f0-f607946f845d",
+                            ConcurrencyStamp = "1f66c14d-d9bf-4cf7-bbf6-8538cc203e92",
                             Name = "Basic",
                             NormalizedName = "BASIC"
-                        },
-                        new
-                        {
-                            Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "0675ab25-ccfe-4c54-82b8-3bc2978e5210",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
                         });
                 });
 
@@ -165,8 +158,8 @@ namespace NotesApp.NotesAPI.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "39bcc889-1952-4150-9887-3c09b8c55773",
-                            RoleId = "00ddaeae-7780-44d5-bd26-f84457706992"
+                            UserId = "fecf766e-6b83-412f-859b-e8cd1eaf92aa",
+                            RoleId = "ba6d02d9-74df-4d01-a474-165c08d948ba"
                         });
                 });
 
@@ -318,22 +311,22 @@ namespace NotesApp.NotesAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "39bcc889-1952-4150-9887-3c09b8c55773",
+                            Id = "fecf766e-6b83-412f-859b-e8cd1eaf92aa",
                             AccessFailedCount = 0,
                             ColorMode = 0,
-                            ConcurrencyStamp = "5fc7a93b-bc76-44cc-aa03-ba73157fc61a",
+                            ConcurrencyStamp = "b8758905-36d2-4db8-a7f4-3e59e5ac0c6c",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Karan",
                             LastName = "singh",
                             LockoutEnabled = false,
                             NormalizedEmail = "Admin@gmail.com",
-                            NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEATfF32jwlOuMHPGXT3jWlHc9jk0SNKIbrA7DHeDp+jnN2X23FR2IrqgZSVpHZX2fg==",
+                            NormalizedUserName = "Admin@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMs2Wu3ia51XAJ2mY76b2w8/9pRIXeY7hGoFGkqwXFCh9NN0IByopHAJ+hXQ8q/JPA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "6f749eb3-ab2a-4e67-9549-d4696902a943",
+                            SecurityStamp = "fb81100f-5e22-4abf-a5d5-9ca1189ace3a",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "admin@gmail.com"
                         });
                 });
 

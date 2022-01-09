@@ -105,34 +105,30 @@ namespace NotesApp.NotesAPI.DbContext
                  Name = Data.Enums.Roles.Basic.ToString()
              }
              );
-
-
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
-
-
+             
             //a hasher to hash the password before seeding the user to the db
             var hasher = new PasswordHasher<IdentityUser>();
 
+            var user = new User
+            {
+                Id = userId.ToString(), // primary key
+                NormalizedUserName = "Admin@gmail.com",
+                NormalizedEmail = "Admin@gmail.com",
+                Email = "admin@gmail.com",
+                UserName = "admin@gmail.com",
+                FirstName = "Karan",
+                LastName = "singh",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            user.PasswordHash = hasher.HashPassword(user, "x12345x");
 
             //Seeding the User to AspNetUsers table
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = userId.ToString(), // primary key
-                    NormalizedUserName = "Admin",
-                    NormalizedEmail = "Admin@gmail.com",
-                    Email = "admin@gmail.com",
-                    UserName = "admin",
-                    FirstName = "Karan",
-                    LastName = "singh",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    LockoutEnabled = false,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    PasswordHash = hasher.HashPassword(null, "x12345x") // Should be read from Secrets server.
-                }
-            );
-
+            modelBuilder.Entity<User>().HasData( user);
+              // Should be read from Secrets server.
 
             //Seeding the relation between our user and role to AspNetUserRoles table
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
