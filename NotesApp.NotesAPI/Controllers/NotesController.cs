@@ -53,8 +53,8 @@ namespace NotesApp.NotesAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("{searchedText}/{id}")]
-        public IEnumerable<Note> Search(string id, string searchedText = null)
+        [HttpGet("Search/{id}")]
+        public IEnumerable<Note> Search(string id, [FromQuery]string searchedText = null)
         {
             IEnumerable<Note> result =  this.notesRepository.Search(searchedText, id); 
 

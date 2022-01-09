@@ -159,8 +159,6 @@ namespace NotesApp.Web.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             IEnumerable<NoteViewModel> notes = new List<NoteViewModel>();
 
-            if (srcModel.SearchText == null) srcModel.SearchText = string.Empty;
-
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseServiceurl);
@@ -168,7 +166,7 @@ namespace NotesApp.Web.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource
-                HttpResponseMessage res = await client.GetAsync($"api/Notes/{srcModel.SearchText}/{userId}");
+                HttpResponseMessage res = await client.GetAsync($"api/Notes/Search/{userId}?searchedText={srcModel.SearchText}");
 
                 var response = res.Content.ReadAsStringAsync().Result;
                  
