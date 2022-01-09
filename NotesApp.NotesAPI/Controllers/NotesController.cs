@@ -106,6 +106,7 @@ namespace NotesApp.NotesAPI.Controllers
             await this.notesRepository.UpdateAsync(note);
 
             return NoContent();
-        }
+        } 
+
     }
 }

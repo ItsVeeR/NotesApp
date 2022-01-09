@@ -191,5 +191,90 @@ namespace NotesApp.Web.Controllers
                 return View(model);
             }  
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        { 
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseServiceurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending request to find web api REST service resource
+                HttpResponseMessage res = await client.GetAsync($"api/Notes/{id}");
+
+                if (res.IsSuccessStatusCode)
+                {
+                    var result = JsonConvert.DeserializeObject<Note>(res.Content.ReadAsStringAsync().Result);
+
+                    //Storing the response details recieved from web api
+                    if (result != null)
+                    {
+                        var model = new NoteEditModel
+                        {
+                            Title = result.Title,
+                            Description = result.Description,
+                            Content = result.Content
+                        };
+                         
+                        return View(model);
+
+                    }
+                }
+
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(NoteEditModel model)
+        {
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            Note note = new Note();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseServiceurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage res = await client.GetAsync($"api/Notes/{model.Id}");
+
+                var result = JsonConvert.DeserializeObject<Note>(res.Content.ReadAsStringAsync().Result);
+
+                //Storing the response details recieved from web api
+                if (result != null)
+                {
+                    note.Id = result.Id;  
+                    note.Title = result.Title;
+                    note.Description = result.Description;
+                    note.Content = result.Content;
+                    note.User = result.User;
+                    note.UserId = result.UserId;
+                    note.DateCreated = result.DateCreated;
+                    note.LastModified = DateTime.UtcNow;
+                }
+            } 
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseServiceurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending request to find web api REST service resource
+                HttpResponseMessage res = await client.PutAsJsonAsync($"api/Notes/{model.Id}", note);
+
+                if(!res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Error");
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

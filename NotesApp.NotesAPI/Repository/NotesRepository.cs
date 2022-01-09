@@ -58,7 +58,7 @@ namespace NotesApp.NotesAPI.Repository
 
         public async Task UpdateAsync(Note note)
         {
-            this.dbContext.Entry(note).State = EntityState.Modified;
+            this.dbContext.Update(note); 
             await this.dbContext.SaveChangesAsync();
         } 
     }
